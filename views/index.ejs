@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <title>CSE 591 Adaptive Web Assignment 3</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron text-center">
+            <h1>Assignment 3</h1>
+        </div>
+
+        <!--main-->
+        <div class="container">
+            <div class="row">
+                <!--left-->
+                <div class="col-md-3" id="leftCol">
+                    <ul class="list-group" id="sidebar">
+                        <% for(var i=0; i < posts.length; i++) { %>
+                            <li class="list-group-item">
+                                Type:
+                                <%= posts[i].type %>
+                                    <br>
+                                    <a onclick="fetchResults(posts[i].text)">
+                                        <%= posts[i].textTrimmed %>
+                                    </a>
+                            </li>
+                            <% } %>
+                    </ul>
+                </div>
+                <!--/left-->
+
+                <!--right-->
+                <div class="col-md-9">
+                    <h2 id="sec0">Content</h2>
+                    <p>
+                        At Bootply we like to build simple Bootstrap templates that utilize the code Bootstap CSS without a lot of customization. Sure you can find a lot of Bootstrap themes and inspiration, but these templates tend to be heavy on customization.</p>
+
+                </div>
+                <!--/right-->
+            </div>
+            <!--/row-->
+        </div>
+        <!--/container-->
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+{
+    "name": "pkondudu-cse591-aw-assignment-3-web-app",
+    "version": "1.0.0",
+    "description": "CSE 591 Adaptive Web Assignment 3 Web Application",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AravindKv805/CSE591Assignment3_WebApp.git"
+    },
+    "author": "Aravind",
+    "license": "GPL-3.0",
+    "dependencies": {
+        "express": "~4.5.1",
+        "body-parser": "~1.4.2",
+        "morgan": "~1.0.0",
+        "cookie-parser": "~1.0.0",
+        "express-session": "~1.0.0",
+        "ejs": "~0.8.5",
+        "method-override": "~2.0.2"
+    },
+    "bugs": {
+        "url": "https://github.com/AravindKv805/CSE591Assignment3_WebApp/issues"
+    },
+    "homepage": "https://github.com/AravindKv805/CSE591Assignment3_WebApp#readme"
+}
