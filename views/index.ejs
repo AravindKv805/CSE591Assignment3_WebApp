@@ -10,6 +10,35 @@
             padding-top: 80px;
         }
     </style>
+    <script>
+        $(document).ready(function() {
+            $("a").click(function() {
+                return false;
+            });
+        });
+
+        function fetchResultsSuccessCallback(response) {
+            console.log(response);
+        }
+
+        function fetchResults(i) {
+            var numI = parseInt(i);
+            let posts = <%- JSON.stringify(posts) %>;
+            console.log(posts[numI].text);
+                $.ajax({
+                    url: "/search",
+                    type: "get",
+                    data: {
+                        q: posts[numI].text + posts[numI].code,
+                        qId: numI
+                    },
+                    success: fetchResultsSuccessCallback,
+                    error: function(xhr) {
+                        //Do Something to handle error
+                    }
+                });
+            }
+    </script>
 </head>
 
 <body>
@@ -29,7 +58,7 @@
                                 Type:
                                 <%= posts[i].type %>
                                     <br>
-                                    <a onclick="fetchResults(posts[i].text)">
+                                    <a onclick="fetchResults('<%= i %>')" href="#">
                                         <%= posts[i].textTrimmed %>
                                     </a>
                             </li>
@@ -40,7 +69,7 @@
 
                 <!--right-->
                 <div class="col-md-9">
-                    <h2 id="sec0">Content</h2>
+                    <h2 id="results">Suggested Results</h2>
                     <p>
                         At Bootply we like to build simple Bootstrap templates that utilize the code Bootstap CSS without a lot of customization. Sure you can find a lot of Bootstrap themes and inspiration, but these templates tend to be heavy on customization.</p>
 
