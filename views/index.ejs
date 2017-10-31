@@ -18,6 +18,12 @@
             $("a").click(function() {
                 return false;
             });
+
+            $("#search-btn").click(function() {
+                let text = $("#search-term").val();
+                console.log(text);
+                doAjaxCall(text, -1);
+            });
         });
 
         function fetchResultsSuccessCallback(response) {
@@ -27,7 +33,7 @@
 
             if (docs.length > 0) {
                 $("#suggestions-list").html('');
-                for(let i = 0; i < docs.length; i++) {
+                for (let i = 0; i < docs.length; i++) {
                     let appendElement = '';
 
                     appendElement += '<li class="list-group-item">';
@@ -42,14 +48,16 @@
                 }
             }
 
-            if (question != undefined) {
+            if (question.text != undefined) {
                 let searchQuestion = question.text;
                 let searchCode = question.code;
                 $("#search-text").html('');
-                $("#search-text").append('<p>' + searchQuestion + '</p>').append('<code>' + searchCode + '</code>');
-            }
-            else {
-                $("#search-text").html(respose.searchText);    
+                $("#search-text").append('<p>' + searchQuestion + '</p>');
+                if (question.code != undefined && question.code != "") {
+                    $("#search-text").append('<code>' + searchCode + '</code>');   
+                }
+            } else {
+                $("#search-text").html(response.searchText);
             }
 
             $("#right-label").html('For the search text:');
@@ -58,21 +66,25 @@
 
         function fetchResults(i) {
             var numI = parseInt(i);
-            let posts = <%- JSON.stringify(posts) %>;
+            let posts = <%- JSON.stringify(posts) %> ;
             console.log(posts[numI].text);
-                $.ajax({
-                    url: "/search",
-                    type: "get",
-                    data: {
-                        q: posts[numI].text + posts[numI].code,
-                        qId: numI
-                    },
-                    success: fetchResultsSuccessCallback,
-                    error: function(xhr) {
-                        //Do Something to handle error
-                    }
-                });
-            }
+            doAjaxCall(posts[numI].text + posts[numI].code, numI);
+        }
+
+        function doAjaxCall(text, numI) {
+            $.ajax({
+                url: "/search",
+                type: "get",
+                data: {
+                    q: text,
+                    qId: numI
+                },
+                success: fetchResultsSuccessCallback,
+                error: function(xhr) {
+                    //Do Something to handle error
+                }
+            });
+        }
     </script>
 </head>
 
@@ -104,14 +116,24 @@
 
                 <!--right-->
                 <div class="col-md-9">
-                    
-                    <p id="search-content">
-                        <h3 id="right-label"> <--- Select a post</h3>
-                        <p id="search-text"></p>
-                    </p>
-                    <div class="well" hidden="true" id="results-content">
-                        <h2>Suggested Results</h2>
-                        <ul id="suggestions-list" class="list-group"></ul>
+                    <div class="row">
+                        <div class="input-group add-on">
+                            <input class="form-control" placeholder="Search" name="srch-term" id="search-term" type="text">
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" id="search-btn"><i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p id="search-content">
+                            <h3 id="right-label"> <--- Select a post</h3>
+                            <p id="search-text"></p>
+                        </p>
+                        <div class="well" hidden="true" id="results-content">
+                            <h2>Suggested Results</h2>
+                            <ul id="suggestions-list" class="list-group"></ul>
+                        </div>
                     </div>
 
                 </div>

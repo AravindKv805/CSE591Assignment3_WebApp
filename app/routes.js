@@ -42,7 +42,7 @@ module.exports = function(app) {
             console.log(result.response.docs.length);
             let question = {};
 
-            if (req.query.qId != undefined && req.query.qId != "") {
+            if (req.query.qId != undefined && req.query.qId != "" && req.query.qId > -1) {
                 let i = parseInt(req.query.qId);
                 if (data[i] != undefined && data[i] != null) {
                     question = data[i];
