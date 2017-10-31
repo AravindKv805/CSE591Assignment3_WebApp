@@ -21,13 +21,13 @@
 
             $("#search-btn").click(function() {
                 let text = $("#search-term").val();
-                console.log(text);
+                //console.log(text);
                 doAjaxCall(text, -1);
             });
         });
 
         function fetchResultsSuccessCallback(response) {
-            console.log(JSON.parse(response.docs).length);
+            //console.log(JSON.parse(response.docs).length);
             let docs = JSON.parse(response.docs);
             let question = JSON.parse(response.question);
 
@@ -67,7 +67,7 @@
         function fetchResults(i) {
             var numI = parseInt(i);
             let posts = <%- JSON.stringify(posts) %> ;
-            console.log(posts[numI].text);
+            //console.log(posts[numI].text);
             doAjaxCall(posts[numI].text + posts[numI].code, numI);
         }
 

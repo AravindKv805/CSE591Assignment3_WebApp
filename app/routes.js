@@ -27,9 +27,9 @@ module.exports = function(app) {
     });
 
     app.get('/search', function(req, res) {
-        console.log(req.query.q);
         const textLimit = 70;
         let queryText = req.query.q.replace(/[^\w\s|\.]/g, " ").replace(/\s+/g, " ");
+        let qId = req.query.qId;
 
         strQuery = client.query().q('content:' + queryText);
         client.search(strQuery, function(err, result) {
@@ -39,11 +39,10 @@ module.exports = function(app) {
             }
 
             let docs = result.response.docs;
-            console.log(result.response.docs.length);
             let question = {};
 
-            if (req.query.qId != undefined && req.query.qId != "" && req.query.qId > -1) {
-                let i = parseInt(req.query.qId);
+            if (qId != undefined && qId != "" && parseInt(qId) > -1) {
+                let i = parseInt(qId);
                 if (data[i] != undefined && data[i] != null) {
                     question = data[i];
                     if (question.text.length > textLimit - 3) {
