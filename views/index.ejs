@@ -9,6 +9,9 @@
         body {
             padding-top: 80px;
         }
+        code {
+            white-space: pre-wrap;
+        }
     </style>
     <script>
         $(document).ready(function() {
@@ -18,7 +21,39 @@
         });
 
         function fetchResultsSuccessCallback(response) {
-            console.log(response);
+            console.log(JSON.parse(response.docs).length);
+            let docs = JSON.parse(response.docs);
+            let question = JSON.parse(response.question);
+
+            if (docs.length > 0) {
+                $("#suggestions-list").html('');
+                for(let i = 0; i < docs.length; i++) {
+                    let appendElement = '';
+
+                    appendElement += '<li class="list-group-item">';
+                    if (docs[i].contentHeader != undefined) {
+                        appendElement += docs[i].contentHeader[0] + " : ";
+                    }
+                    if (docs[i].content != undefined) {
+                        appendElement += docs[i].content;
+                    }
+                    appendElement += '</li>';
+                    $("#suggestions-list").append(appendElement);
+                }
+            }
+
+            if (question != undefined) {
+                let searchQuestion = question.text;
+                let searchCode = question.code;
+                $("#search-text").html('');
+                $("#search-text").append('<p>' + searchQuestion + '</p>').append('<code>' + searchCode + '</code>');
+            }
+            else {
+                $("#search-text").html(respose.searchText);    
+            }
+
+            $("#right-label").html('For the search text:');
+            $("#results-content").removeAttr('hidden');
         }
 
         function fetchResults(i) {
@@ -69,9 +104,15 @@
 
                 <!--right-->
                 <div class="col-md-9">
-                    <h2 id="results">Suggested Results</h2>
-                    <p>
-                        At Bootply we like to build simple Bootstrap templates that utilize the code Bootstap CSS without a lot of customization. Sure you can find a lot of Bootstrap themes and inspiration, but these templates tend to be heavy on customization.</p>
+                    
+                    <p id="search-content">
+                        <h3 id="right-label"> <--- Select a post</h3>
+                        <p id="search-text"></p>
+                    </p>
+                    <div class="well" hidden="true" id="results-content">
+                        <h2>Suggested Results</h2>
+                        <ul id="suggestions-list" class="list-group"></ul>
+                    </div>
 
                 </div>
                 <!--/right-->

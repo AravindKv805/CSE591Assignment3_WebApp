@@ -44,6 +44,7 @@ module.exports = function(app) {
             }
 
             let docs = result.response.docs;
+            console.log(result.response.docs.length);
             let question = {};
 
             if (req.query.qId != undefined && req.query.qId != "") {
