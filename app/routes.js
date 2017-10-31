@@ -1,13 +1,8 @@
 let data = require("./data.json");
 let SolrNode = require('solr-node');
+let solr_config = require('./solr_config.json');
 
-let client = new SolrNode({
-    host: 'ec2-34-213-252-195.us-west-2.compute.amazonaws.com',
-    port: '8983',
-    core: 'mycore',
-    protocol: 'http',
-    debugLevel: 'ERROR'
-});
+let client = new SolrNode(solr_config);
 
 module.exports = function(app) {
 
