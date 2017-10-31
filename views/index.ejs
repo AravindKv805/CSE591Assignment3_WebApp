@@ -15,7 +15,7 @@
     </style>
     <script>
         $(document).ready(function() {
-            $("a").click(function() {
+            $("#leftCol a").click(function() {
                 return false;
             });
 
@@ -134,6 +134,13 @@
                             <h2>Suggested Results</h2>
                             <ul id="suggestions-list" class="list-group"></ul>
                         </div>
+                    </div>
+                    <div class="row">
+                        <h5><b>FOR BONUS:</b> Added a search box where a search term can be entered.
+                        <h5><b>FOR BONUS:</b> Collected over 8000 small chunks of text and code from both Wikibooks Java Programming and Oracle Java Tutorial</h5>
+                        <b>Indexing the documents:</b> The crawler picks up all the sections and their title from the web page and divides them into small chunks of text and code snippets. From the crawled content, many "parts" are built and each part contains a link (from the site the content was picked), a title (of the main page), contentHeader (section and header) and content (small chunk of code and text
+                        <p><br>These documents are then uploaded into Apache Solr server Solr provides REST APIs by which we can query on the document set.<br>The documents are indexed using a <a href="https://en.wikipedia.org/wiki/Okapi_BM25" target="_blank">Best Matching probabiility algorithm</a>.
+                        </p>
                     </div>
 
                 </div>
